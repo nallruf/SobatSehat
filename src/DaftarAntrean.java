@@ -1,34 +1,24 @@
-import org.apache.poi.ss.usermodel.*;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 
-public class DaftarAntrean {
-    private static Workbook wb;
-    private static Sheet sh;
-    private static FileInputStream fis;
-    private static FileOutputStream fos;
-    private static Row row;
-    private static Cell cell;
+public class DaftarAntrean extends Fitur{
 
     public static void Daftar() throws Exception{
-        Scanner input = new Scanner(System.in);
-        fis = new FileInputStream("./src/data.xlsx");
-        wb = WorkbookFactory.create(fis);
+        FileInput();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime now = LocalDateTime.now();
         System.out.println("\nPage Daftar Antrean");
 
-        System.out.println("\npilih waktu konsultasi: \n1. pagi \n2. sore");
-        System.out.print("\npilhan: ");
-        int waktu = input.nextInt();
-        input.nextLine();
+        System.out.println("Pilih waktu konsultasi: " +
+                "\n\t1. Pagi " +
+                "\n\t2. Sore" +
+                "\n\t3. Kembali ke halaman utama");
+        System.out.print("Pilhan Menu(1/2/3): ");
+        menu = inp.nextInt();
+        inp.nextLine();
         String username = Login.UserSession.getId();
-
-        switch(waktu){
+        System.out.println("\n--------------------------");
+        switch(menu){
             case 1:
                 sh = wb.getSheet("antrean_pagi");
                 int noOfRow = sh.getLastRowNum();
@@ -44,7 +34,7 @@ public class DaftarAntrean {
                 cell.setCellValue("PAGI");
                 String no_antrean = Integer.toString(noOfRow + 1);
                 System.out.println("\nnomor antrean anda: " + no_antrean);
-                // ModelQueue.addQueue(no_antrean);
+
                 sh = wb.getSheet("rekap");
                 noOfRow = sh.getLastRowNum();
                 row = sh.createRow(noOfRow + 1);
@@ -56,7 +46,7 @@ public class DaftarAntrean {
                 cell.setCellValue(temp);
                 cell = row.createCell(3);
                 cell.setCellValue("PAGI");
-                
+
                 sh = wb.getSheet("queue");
                 noOfRow = sh.getLastRowNum();
                 row = sh.createRow(noOfRow + 1);
@@ -100,10 +90,9 @@ public class DaftarAntrean {
                 cell = row.createCell(1);
                 cell.setCellValue(temp);
         }
+        FileOutput();
 
-        fos = new FileOutputStream("./src/data.xlsx");
-        wb.write(fos);
-        fos.flush();
-        fos.close();
+        System.out.println("--------------------------");
+        backMain();
     }
 }

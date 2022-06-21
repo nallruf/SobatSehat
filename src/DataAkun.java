@@ -3,40 +3,39 @@ import java.util.*;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.ss.usermodel.*;
 
-public class DataAkun {
-    private static Workbook wb;
-    private static Sheet sh;
-    private static FileInputStream fis;
-    private static FileOutputStream fos;
-    private static Row row;
-    private static Cell cell;
+public class DataAkun extends Fitur{
     private static int pilih;
-    private static Scanner input = new Scanner(System.in); 
-    
+
     public static void createAcc() throws Exception{
-        fis = new FileInputStream("src/data.xlsx");
-        wb = WorkbookFactory.create(fis);
+        FileInput();
         String email, password, username, alamat;
 
         System.out.println("-------BUAT AKUN-------");
-        System.out.print("Masukkan nama anda: ");
-        username = input.next();
-        System.out.print("Buat E-mail: ");
-        email = input.next();
-        System.out.print("Buat Password: ");
-        password = DigestUtils.md5Hex(input.next());
-        input.nextLine();
-        System.out.print("Masukan alamat: ");
-        alamat = input.nextLine();
+        System.out.println("Masukkan Nama Anda! ");
+        System.out.println("Maksimal 15 karakter termasuk spasi");
+        System.out.print("Nama: ");
+        username = inp.next();
+        System.out.println("Buat E-Mail Anda! ");
+        System.out.println("Maksimal 20 karakter, tidak boleh spasi spasi");
+        System.out.print("E-Mail: ");
+        email = inp.next();
+        System.out.println("Buat Password Anda! ");
+        System.out.println("Maksimal 14 karakter, tidak boleh spasi");
+        System.out.print("Password: ");
+        password = DigestUtils.md5Hex(inp.next());
+        inp.nextLine();
+        System.out.println("Masukkan Alamat Anda! ");
+        System.out.println("Maksimal 22 karakter termasuk spasi");
+        System.out.print("Alamat: ");
+        alamat = inp.nextLine();
         userAcc user = new userAcc(email, password, username, alamat);
 
         sh = wb.getSheet("pasien");
         int noOfRow = sh.getLastRowNum();
         row = sh.createRow(noOfRow + 1);
         cell = row.createCell(0);
-        cell.setCellValue(noOfRow + 1);
+        cell.setCellValue((noOfRow+1) + "_PASIEN");
         cell = row.createCell(1);
         cell.setCellValue(userAcc.getUsername());
         cell = row.createCell(2);
@@ -45,39 +44,34 @@ public class DataAkun {
         cell.setCellValue(userAcc.getPassword());
         cell = row.createCell(4);
         cell.setCellValue(userAcc.getAdd());
-            
-        fos = new FileOutputStream("src/data.xlsx");
-        wb.write(fos);
-        fos.flush();
-        fos.close();
-        System.out.print("Akun sukses dibuat!");
 
+        fo = new FileOutputStream("src/data.xlsx");
+        wb.write(fo);
+        fo.flush();
+        fo.close();
+        System.out.println("Akun sukses dibuat!");
+        backMain();
     }
 
+    /**
+     * @throws EncryptedDocumentException
+     * @throws IOException
+     */
     public static void viewData() throws EncryptedDocumentException, IOException {
-        fis = new FileInputStream("src/data.xlsx");
-        wb = WorkbookFactory.create(fis);
+        FileInput();
         sh = wb.getSheet("pasien");
         int noOfRow = sh.getLastRowNum();
-        System.out.println("Data Pasien");
-        System.out.println("-------------------");
-        
-        for(int i = 1; i <= noOfRow; i++){
-            System.out.print("Id user: ");
-            System.out.print(sh.getRow(i).getCell(0)+"\n");
-            System.out.print("Username: ");
-            System.out.print(sh.getRow(i).getCell(1)+"\n");
-            System.out.print("E-mail: ");
-            System.out.print(sh.getRow(i).getCell(2)+"\n");
-            System.out.print("Alamat: ");
-            System.out.print(sh.getRow(i).getCell(4)+"\n");
-            System.out.println("\n");
+        System.out.println("\n---------------------------------------------------------------------------");
+        System.out.println("|                               DATA PASIEN                               |");
+        System.out.println("---------------------------------------------------------------------------");
+        System.out.println("|  Id User  |   Username   |        E-Mail        |          Alamat       |");
+        System.out.println("---------------------------------------------------------------------------");
+        for (int i = 1; i <= noOfRow; i++) {
+            System.out.printf("|%10s | %12s | %20s | %21s |", sh.getRow(i).getCell(0).toString(), sh.getRow(i).getCell(1).toString(), sh.getRow(i).getCell(2).toString(), sh.getRow(i).getCell(4).toString() );
+            System.out.println();
         }
-        
-        fos = new FileOutputStream("src/data.xlsx");
-        wb.write(fos);
-        fos.flush();
-        fos.close();
-        } 
-    
+        System.out.println("---------------------------------------------------------------------------");
+        FileOutput();
+        backMain();
+    }
 }

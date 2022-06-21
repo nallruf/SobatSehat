@@ -14,8 +14,8 @@ public class Init {
         Fillo fillo = new Fillo();
         Connection conn = fillo.getConnection("./src/data.xlsx");      
         
-        // int hours = dt.getHours();   
-        int hours = 13;
+        int hours = dt.getHours();   
+        // int hours = 13;
         if(hours< 12){
            
             String query = "Delete from antrean_sore";
