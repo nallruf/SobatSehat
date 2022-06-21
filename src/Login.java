@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.jcp.xml.dsig.internal.dom.Utils;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -31,7 +32,6 @@ public class Login {
     public static Session UserSession;
     
     public static void main(String[] args) throws Exception {
-
         
         System.out.println("----------------------------------------");
         System.out.println("|                LOG IN                |");

@@ -1,11 +1,4 @@
-import java.io.IOException;
-import java.util.Date;
 import java.util.Scanner;
-
-import javax.xml.crypto.Data;
-
-import org.apache.poi.EncryptedDocumentException;
-
 public class MenuUtama {
     public static Scanner inp = new Scanner(System.in);
     public static char backMain = 'y';
@@ -16,7 +9,7 @@ public class MenuUtama {
         Antrean antrean = new Antrean();
         RekapDataAntrean rekap = new RekapDataAntrean();
 
-        init();
+        Init.init();
 
         String role= Login.UserSession.getRole();
         
@@ -46,9 +39,10 @@ public class MenuUtama {
                     RekapDataAntrean.RekapAntrian();
                     break;
                 case 5 :
-                    viewLiveAntrean.Live();
+                    viewLiveAntrean.printQueue(1);
                     break;
                 case 6 :
+                    Clear.clearQueue();
                     System.out.println("Terima kasih, semoga sehat selalu (:");
                     System.exit(0);
             }
@@ -76,23 +70,9 @@ public class MenuUtama {
                         System.exit(0);
                 }
             }
-            
             if (backMain != 'y'){
                 break;
             }
         }
     }
-
-    public static void init() throws EncryptedDocumentException, IOException {
-        Date dt = new Date();  
-        int hours = dt.getHours(); 
-        if(hours< 12){
-            ModelLiveAntrean.initQueue("antrean_pagi");
-        }else{
-            ModelLiveAntrean.initQueue("antrean_sore");
-        }
-       
-
-      
-        }
 }

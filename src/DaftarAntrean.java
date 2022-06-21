@@ -44,7 +44,7 @@ public class DaftarAntrean {
                 cell.setCellValue("PAGI");
                 String no_antrean = Integer.toString(noOfRow + 1);
                 System.out.println("\nnomor antrean anda: " + no_antrean);
-                ModelLiveAntrean.addQueue(no_antrean);
+                // ModelQueue.addQueue(no_antrean);
                 sh = wb.getSheet("rekap");
                 noOfRow = sh.getLastRowNum();
                 row = sh.createRow(noOfRow + 1);
@@ -61,6 +61,8 @@ public class DaftarAntrean {
                 noOfRow = sh.getLastRowNum();
                 row = sh.createRow(noOfRow + 1);
                 cell = row.createCell(0);
+                cell.setCellValue("baru");
+                cell = row.createCell(1);
                 cell.setCellValue(no_antrean);
 
                 break;
@@ -70,15 +72,14 @@ public class DaftarAntrean {
                 temp = noOfRow + 1;
                 row = sh.createRow(noOfRow + 1);
                 cell = row.createCell(0);
-                cell.setCellValue(dtf.format(now) + "_SORE_" + (noOfRow + 1));
+                cell.setCellValue(dtf.format(now) + "_SORE_" + (temp));
                 cell = row.createCell(1);
                 cell.setCellValue(username);
                 cell = row.createCell(2);
                 cell.setCellValue(noOfRow + 1);
                 cell = row.createCell(3);
                 cell.setCellValue("SORE");
-                System.out.println("\nnomor antrean anda: " + (noOfRow + 1));
-                ModelLiveAntrean.addQueue(Integer.toString(noOfRow + 1));
+                System.out.println("\nnomor antrean anda: " + (temp));
                 sh = wb.getSheet("rekap");
                 noOfRow = sh.getLastRowNum();
                 row = sh.createRow(noOfRow + 1);
@@ -90,12 +91,14 @@ public class DaftarAntrean {
                 cell.setCellValue(temp);
                 cell = row.createCell(3);
                 cell.setCellValue("SORE");
+
                 sh = wb.getSheet("queue");
                 noOfRow = sh.getLastRowNum();
-                String no_Antrean = Integer.toString(noOfRow + 1);
                 row = sh.createRow(noOfRow + 1);
                 cell = row.createCell(0);
-                cell.setCellValue(no_Antrean);
+                cell.setCellValue("baru");
+                cell = row.createCell(1);
+                cell.setCellValue(temp);
         }
 
         fos = new FileOutputStream("./src/data.xlsx");
