@@ -13,6 +13,7 @@ public class ModelQueue extends Fitur {
 
     public static void initQueue(String jadwal) throws EncryptedDocumentException, IOException{
         queue= new LinkedList<>();
+        
         FileInput();
         sh = wb.getSheet("queue");
         int lastRow = sh.getLastRowNum();

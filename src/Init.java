@@ -16,15 +16,14 @@ public class Init {
         
         int hours = dt.getHours();   
         // int hours = 13;
+
         if(hours< 12){
-           
             String query = "Delete from antrean_sore";
             conn.executeUpdate(query);
             conn.close();
             if(Login.UserSession.getRole().equals("Admin")){
                 ModelQueue.initQueue("antrean_pagi");
             }
-            
         }else if(hours > 12){
             String query = "Delete from antrean_pagi";
             conn.executeUpdate(query);
